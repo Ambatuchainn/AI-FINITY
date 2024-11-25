@@ -1,0 +1,51 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Font Styling */
+body {
+  font-family: 'Inter', 'Colfax', sans-serif;
+  background: linear-gradient(135deg, #0a0a0a, #121212, #1a1a1a, #000000); /* Dark matter, darkest night, black hole colors */
+  color: #e0e0e0; /* Light gray for readability */
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header Styling */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1e1e1e; /* Slightly lighter black */
+  color: #ffffff;
+  padding: 15px 20px;
+  text-align: center;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* Shadow for depth */
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+header p {
+  font-size: 1rem;
+  color: #a8a8a8; /* Muted gray for subtitle */
+}
+
+/* Main Content Styling */
+main {
+  flex-grow: 1;
+  margin-top: 100px; /* Accounts for fixed header height */
+  margin-bottom: 60px; /* Accounts for fixed footer height */
+  padding: 20px;
+  text-align: center;
+  overflow-y: auto;
+}

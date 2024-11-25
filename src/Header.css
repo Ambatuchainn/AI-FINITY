@@ -1,0 +1,64 @@
+/* Header Styling */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #000000, #001f3f, #010f23, #09022b); /* Gradient colors */
+  background-size: 300% 300%; /* Smooth transition between colors */
+  animation: headerGradient 15s ease infinite; /* Optional animation */
+  color: #ffffff;
+  padding: 10px 20px; /* Adjusted for smaller height */
+  display: flex;
+  justify-content: space-between; /* Space between logo, text, and login button */
+  align-items: center; /* Vertically aligns items in the center */
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* Shadow for depth */
+}
+
+/* Keyframes for gradient animation (optional) */
+@keyframes headerGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.site-logo {
+  width: 120px; /* Reduced size to fit alongside text */
+  height: auto;
+  margin-right: 10px; /* Space between logo and text */
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column; /* Stack title and subtitle */
+  align-items: flex-start; /* Align text to the left */
+}
+
+header h1 {
+  font-size: 1.5rem; /* Adjusted for smaller header */
+  margin: 0;
+}
+
+header p {
+  font-size: 0.9rem;
+  color: #a8a8a8; /* Muted gray for subtitle */
+  margin: 2px 0 0 0; /* Slight margin for spacing */
+}
+
+.submit-button img.icp-logo {
+  width: 20px; /* Reduced size to fit alongside text */
+  height: auto;
+  margin-right: 10px; /* Space between logo and text */
+}
+
+/* Body padding to prevent overlap with fixed header */
+body {
+  padding-top: 60px; /* Adjust according to the height of your header */
+}

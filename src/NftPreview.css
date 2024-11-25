@@ -1,0 +1,85 @@
+/* NFT Generator Section Styling */
+.nft-generator-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 120px; /* To make room for fixed header */
+  padding-bottom: 100px; /* To make room for fixed footer */
+}
+
+.nft-generator-container input {
+  padding: 12px;
+  margin: 10px 0;
+  border: 2px solid #8e44ad; /* Soft purple border */
+  background-color: rgba(0, 0, 0, 0.2); /* Slightly transparent dark background */
+  color: #ecf0f1;
+  font-size: 1rem;
+  border-radius: 8px;
+  width: 80%;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* When hovered */
+.nft-generator-container input:hover {
+  border-color: #ecf0f1;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* When focused */
+.nft-generator-container input:focus {
+  border-color: #ecf0f1;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Button Styling */
+.submit-button {
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* When button is hovered */
+.submit-button:hover {
+  background-color: #9b59b6;
+  transform: scale(1.05);
+}
+
+.nft-image {
+  border: 10px solid #f39c12; /* Vintage yellow border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+  width: 90px;  /* Fixed width */
+  max-width: 1024px;
+  height: auto; /* Fixed height */
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect for NFT image */
+.nft-image:hover {
+  transform: scale(1.05);
+}
+
+/* For smaller screens */
+@media (max-width: 600px) {
+  .nft-generator-container input {
+    width: 90%;
+  }
+
+  .nft-image {
+    width: 100%;
+    max-width: 300px; /* Smaller max-width for mobile */
+  }
+
+  .submit-button {
+    font-size: 1rem;
+  }
+}

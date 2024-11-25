@@ -1,0 +1,18 @@
+/* Footer Styling */
+.footer {
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background for footer */
+  color: #ecf0f1;
+  text-align: center;
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.footer img.icp-logo {
+  width: 20px; /* Reduced size to fit alongside text */
+  height: auto;
+  margin-right: 10px; /* Space between logo and text */
+}
