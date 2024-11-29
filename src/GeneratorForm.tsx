@@ -1,36 +1,37 @@
-import React, { useState } from 'react';
-
+import React from 'react';
+import Swal from 'sweetalert2'; // Import SweetAlert2 for alerts
+import './GeneratorForm.css'; // Ensure this path is correct
 interface GeneratorFormProps {
-  onGenerate: (description: string, style: string) => void;
+  isAuthenticated: boolean; // Add isAuthenticated prop
 }
 
-const GeneratorForm: React.FC<GeneratorFormProps> = ({ onGenerate }) => {
-  const [description, setDescription] = useState<string>('');
-  const [style] = useState<string>('Digital Art'); // Default to 'Digital Art'
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onGenerate(description, style);
+const GeneratorForm: React.FC<GeneratorFormProps> = ({ isAuthenticated }) => {
+  const handleRedirect = () => {
+    if (!isAuthenticated) {
+      // Show SweetAlert if the user is not authenticated
+      Swal.fire({
+        icon: 'warning',
+        title: 'Not Logged In',
+        text: 'You must be logged in to play the game.',
+        confirmButtonText: 'OK',
+      });
+      return;
+    }
+    window.location.href = 'https://dehockey.netlify.app/'; // Redirects to the provided link
   };
 
   return (
     <div className="generator-container">
-      <h2 className="form-title">Describe Your Ideas and Generate</h2>
       <p className="form-description">
-        Transform your words into visual masterpieces: Leverage AI technology to craft breathtaking NFTs.
+        Press The Button For Playing The Game
       </p>
-
-      <form className="generator-form" onSubmit={handleSubmit}>
-        {/* Input field for description */}
-        <input
-          type="text"
-          placeholder="Describe your image..."
-          value={description}
-          onChange={(e) => setDescription(e.target.value)} // Updates description as the user types
-          className="form-input"
-        />
-        <button type="submit" className="submit-button">Generate</button>
-      </form>
+      <button
+        className="submit-button"
+        onClick={handleRedirect}
+        disabled={!isAuthenticated} // Disable button if not authenticated
+      >
+        Start
+      </button>
     </div>
   );
 };

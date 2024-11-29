@@ -1,37 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import Swal from 'sweetalert2';
 import './Header.css';
 import logo from './assets/logo.png';
-import { loginWithICP } from './declarations/backend/LoginUtils'; // Ensure this function is correctly defined
+import { loginWithICP } from './declarations/backend/LoginUtils';
 
-const Header: React.FC = () => {
-  // Track if the user is logged in
+interface HeaderProps {
+  onLoginSuccess?: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onLoginSuccess }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Handle ICP login
-  const handleLogin = async () => {
+  const handleLogin = useCallback(async () => {
+    setIsLoading(true);
+
     try {
-      await loginWithICP(); // Trigger ICP login
-      setIsLoggedIn(true); // Update state when logged in
+      const success = await loginWithICP();
+      
+      if (success) {
+        setIsLoggedIn(true);
+        onLoginSuccess?.();
+        
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Successful',
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      } else {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Login Canceled',
+          text: 'Please try logging in again.',
+          toast: true,
+          position: 'top-end'
+        });
+      }
     } catch (error) {
       console.error("Login failed:", error);
+      
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: error instanceof Error ? error.message : 'An unexpected error occurred',
+        confirmButtonText: 'Try Again'
+      });
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, [onLoginSuccess]);
 
   return (
-    <header>
+    <header className="header">
       <div className="header-content">
-        <h1 className="title">AI-Powered NFT Generator</h1>
-        <p className="subtitle">Create and mint art in a minute with ease</p>
+        <h1 className="title">AI-Powered Hockey Game</h1>
+        <p className="subtitle">Play This Hockey Game</p>
       </div>
       <img src={logo} alt="Site Logo" className="site-logo" />
       <div className="header-actions">
-        {/* Conditionally render button based on login state */}
         <button 
           type="button" 
-          className="submit-button" 
+          className={`submit-button ${isLoggedIn ? 'logged-in' : ''}`}
           onClick={handleLogin}
+          disabled={isLoading || isLoggedIn}
         >
-          {isLoggedIn ? "Logged In" : "Login with ICP"}
+          {isLoading 
+            ? "Logging In..." 
+            : (isLoggedIn ? "Logged In" : "Login with ICP")
+          }
         </button>
       </div>
     </header>
