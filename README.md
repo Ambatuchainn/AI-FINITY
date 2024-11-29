@@ -1,6 +1,6 @@
-# AI-FINITY 
+# DeHockey 
 name of the project built by Ambatuchainn
-this ai will generate picture of nft and mint it 
+This is 3dHockeyGame 
 
 # Before start this project install dfx in your OS
 for windows use wsl with this link:
