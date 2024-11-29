@@ -19,7 +19,7 @@ dfx --version
 # How to Start this in your local and run all these commands
 git clone <this-repo> #clone this repo
 
-cd AI-FINITY  #Navigate into the project directory
+cd DeHockey  #Navigate into the project directory
 
 npm install #install all dependencies
 
