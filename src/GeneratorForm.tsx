@@ -37,7 +37,7 @@ const GeneratorForm: React.FC<GeneratorFormProps> = ({
             onLoginSuccess();
 
             // Redirect to game
-            window.location.href = 'https://dehockey.netlify.app/';
+            window.location.href = 'https://dehockey.netlify.app/';  //url to the game because we can't connect it to microservice somehow 
           } else {
             // Show login failure alert
             await Swal.fire({
@@ -61,7 +61,7 @@ const GeneratorForm: React.FC<GeneratorFormProps> = ({
     }
 
     // Redirect if already authenticated
-    window.location.href = 'https://dehockey.netlify.app/';
+    window.location.href = 'https://dehockey.netlify.app/'; //url to the game because we can't connect it to microservice somehow
   }, [isAuthenticated, onLoginSuccess]);
 
   return (
