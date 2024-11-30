@@ -1,24 +1,68 @@
-import React from 'react';
-import Swal from 'sweetalert2'; // Import SweetAlert2 for alerts
-import './GeneratorForm.css'; // Ensure this path is correct
+import React, { useCallback } from 'react';
+import Swal from 'sweetalert2';
+import './GeneratorForm.css';
+import { loginWithICP } from './declarations/backend/LoginUtils';
+
 interface GeneratorFormProps {
-  isAuthenticated: boolean; // Add isAuthenticated prop
+  isAuthenticated: boolean;
+  onLoginSuccess: () => void;
 }
 
-const GeneratorForm: React.FC<GeneratorFormProps> = ({ isAuthenticated }) => {
-  const handleRedirect = () => {
+const GeneratorForm: React.FC<GeneratorFormProps> = ({ 
+  isAuthenticated, 
+  onLoginSuccess 
+}) => {
+  const handleRedirect = useCallback(async () => {
     if (!isAuthenticated) {
-      // Show SweetAlert if the user is not authenticated
-      Swal.fire({
+      // Show SweetAlert when not authenticated
+      const result = await Swal.fire({
         icon: 'warning',
-        title: 'Not Logged In',
-        text: 'You must be logged in to play the game.',
-        confirmButtonText: 'OK',
+        title: 'Authentication Required',
+        text: 'Please log in to start the game.',
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#3085d6',
       });
+
+      // If user confirms login
+      if (result.isConfirmed) {
+        try {
+          // Attempt to log in
+          const loginResult = await loginWithICP();
+
+          if (loginResult.success) {
+            // Trigger login success callback
+            onLoginSuccess();
+
+            // Redirect to game
+            window.location.href = 'https://dehockey.netlify.app/';
+          } else {
+            // Show login failure alert
+            await Swal.fire({
+              icon: 'error',
+              title: 'Login Failed',
+              text: loginResult.error || 'Could not complete login.',
+              confirmButtonText: 'OK',
+            });
+          }
+        } catch (error) {
+          // Handle any unexpected errors during login
+          await Swal.fire({
+            icon: 'error',
+            title: 'Login Error',
+            text: 'An unexpected error occurred.',
+            confirmButtonText: 'OK',
+          });
+        }
+      }
       return;
     }
-    window.location.href = 'https://dehockey.netlify.app/'; // Redirects to the provided link
-  };
+
+    // Redirect if already authenticated
+    window.location.href = 'https://dehockey.netlify.app/';
+  }, [isAuthenticated, onLoginSuccess]);
 
   return (
     <div className="generator-container">
@@ -28,9 +72,10 @@ const GeneratorForm: React.FC<GeneratorFormProps> = ({ isAuthenticated }) => {
       <button
         className="submit-button"
         onClick={handleRedirect}
-        disabled={!isAuthenticated} // Disable button if not authenticated
+        disabled={false} // Always enabled, will handle auth internally
+        title={isAuthenticated ? 'Start Game' : 'Start Game'}
       >
-        Start
+        {isAuthenticated ? 'Start' : 'Start Game'}
       </button>
     </div>
   );
